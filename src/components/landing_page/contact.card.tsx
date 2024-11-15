@@ -166,7 +166,7 @@ const ContactCard = () => {
                     Email Me At
                   </h3>
                   <p className="text-blue-400 text-sm sm:text-base break-all">
-                    abdulra7manshaban@gmail.com
+                    {process.env.NEXT_PUBLIC_EMAIL_TO}
                   </p>
                 </div>
               </div>
