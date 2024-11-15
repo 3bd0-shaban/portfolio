@@ -1,106 +1,28 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  AnimatePresence,
+} from "framer-motion";
 import {
   AiFillGithub,
   AiOutlineLink,
   AiFillEye,
   AiOutlineArrowDown,
 } from "react-icons/ai";
-import { useRef, useState } from "react";
-
-const projects = [
-  {
-    title: "Project One",
-    description:
-      "A modern web application built with Next.js and TypeScript, featuring real-time data synchronization and AI-powered features",
-    image: "/placeholder.svg?height=400&width=600",
-    tags: ["Next.js", "TypeScript", "Tailwind CSS", "AI Integration"],
-    github: "https://github.com/username/project-one",
-    demo: "https://project-one.demo",
-    gradient: "from-[#FF1CF7] to-[#b249f8]",
-    stats: { stars: "1.2k", forks: "234", views: "45k" },
-  },
-  {
-    title: "Project Two",
-    description:
-      "Revolutionary e-commerce platform with AR product visualization and blockchain-based payment system",
-    image: "/placeholder.svg?height=400&width=600",
-    tags: ["React", "Node.js", "AR.js", "Blockchain"],
-    github: "https://github.com/username/project-two",
-    demo: "https://project-two.demo",
-    gradient: "from-[#00DDEB] to-[#6A98F0]",
-    stats: { stars: "856", forks: "156", views: "32k" },
-  },
-  {
-    title: "Project Three",
-    description:
-      "AI-powered analytics dashboard with predictive modeling and real-time data visualization",
-    image: "/placeholder.svg?height=400&width=600",
-    tags: ["Python", "TensorFlow", "React", "D3.js"],
-    github: "https://github.com/username/project-three",
-    demo: "https://project-three.demo",
-    gradient: "from-[#6A98F0] to-[#FF1CF7]",
-    stats: { stars: "2.1k", forks: "342", views: "67k" },
-  },
-  {
-    title: "Project Four",
-    description:
-      "Social media platform with AI-driven content moderation and personalized feed algorithms",
-    image: "/placeholder.svg?height=400&width=600",
-    tags: ["React Native", "Firebase", "AI/ML", "Redux"],
-    github: "https://github.com/username/project-four",
-    demo: "https://project-four.demo",
-    gradient: "from-[#FF1CF7] to-[#b249f8]",
-    stats: { stars: "943", forks: "167", views: "28k" },
-  },
-  {
-    title: "Project Five",
-    description:
-      "IoT smart home system with machine learning-based automation and energy optimization",
-    image: "/placeholder.svg?height=400&width=600",
-    tags: ["IoT", "Python", "TensorFlow", "MQTT"],
-    github: "https://github.com/username/project-five",
-    demo: "https://project-five.demo",
-    gradient: "from-[#00DDEB] to-[#6A98F0]",
-    stats: { stars: "1.5k", forks: "276", views: "52k" },
-  },
-  {
-    title: "Project Six",
-    description:
-      "Augmented reality educational platform with interactive 3D learning experiences",
-    image: "/placeholder.svg?height=400&width=600",
-    tags: ["Unity", "AR Kit", "C#", "WebGL"],
-    github: "https://github.com/username/project-six",
-    demo: "https://project-six.demo",
-    gradient: "from-[#6A98F0] to-[#FF1CF7]",
-    stats: { stars: "734", forks: "128", views: "19k" },
-  },
-  {
-    title: "Project Seven",
-    description:
-      "Blockchain-based supply chain management system with real-time tracking",
-    image: "/placeholder.svg?height=400&width=600",
-    tags: ["Solidity", "Ethereum", "React", "Node.js"],
-    github: "https://github.com/username/project-seven",
-    demo: "https://project-seven.demo",
-    gradient: "from-[#FF1CF7] to-[#b249f8]",
-    stats: { stars: "892", forks: "145", views: "31k" },
-  },
-  {
-    title: "Project Eight",
-    description:
-      "AI-powered virtual assistant for healthcare management and patient monitoring",
-    image: "/placeholder.svg?height=400&width=600",
-    tags: ["Python", "TensorFlow", "React", "GraphQL"],
-    github: "https://github.com/username/project-eight",
-    demo: "https://project-eight.demo",
-    gradient: "from-[#00DDEB] to-[#6A98F0]",
-    stats: { stars: "1.3k", forks: "198", views: "44k" },
-  },
-];
+import { useRef, useState, useEffect } from "react";
+import ProjectDetails from "./projectDetails";
+import { projects } from "@/constants/Projects";
 
 const ProjectsCard = () => {
   const [visibleProjects, setVisibleProjects] = useState(3);
-  const containerRef = useRef(null);
+  const [selectedProject, setSelectedProject] = useState<projectTypes | null>(
+    null
+  );
+  const [projectImages, setProjectImages] = useState<string[]>([]);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const containerRef = useRef<HTMLElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
@@ -109,15 +31,64 @@ const ProjectsCard = () => {
   const opacity = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
   const scale = useTransform(scrollYProgress, [0, 0.2], [0.8, 1]);
 
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (selectedProject) {
+        if (e.key === "Escape") setSelectedProject(null);
+        if (e.key === "ArrowRight")
+          setCurrentImageIndex((prev) => (prev + 1) % projectImages.length);
+        if (e.key === "ArrowLeft")
+          setCurrentImageIndex(
+            (prev) => (prev - 1 + projectImages.length) % projectImages.length
+          );
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyPress);
+    return () => window.removeEventListener("keydown", handleKeyPress);
+  }, [selectedProject, projectImages]);
+
+  useEffect(() => {
+    if (selectedProject) {
+      document.body.style.overflow = "hidden";
+      const header = document.querySelector("header");
+      if (header) header.style.display = "none";
+    } else {
+      document.body.style.overflow = "unset";
+      const header = document.querySelector("header");
+      if (header) header.style.display = "block";
+    }
+
+    return () => {
+      document.body.style.overflow = "unset";
+      const header = document.querySelector("header");
+      if (header) header.style.display = "block";
+    };
+  }, [selectedProject]);
+
   const loadMore = () => {
     setVisibleProjects((prev) => Math.min(prev + 3, projects.length));
+  };
+
+  const handleProjectClick = async (project: projectTypes) => {
+    setSelectedProject(project);
+    setCurrentImageIndex(0);
+    try {
+      const images = Array.from(
+        { length: 5 },
+        (_, i) => `${project.folderImages}/${i + 1}.png`
+      );
+      setProjectImages(images);
+    } catch (error) {
+      console.error("Error loading project images:", error);
+    }
   };
 
   return (
     <section
       ref={containerRef}
       id="projects"
-      className="relative container mx-auto max-w-7xl py-32 overflow-hidden "
+      className="relative container mx-auto max-w-7xl py-32 overflow-hidden"
     >
       <motion.div
         style={{ opacity, scale }}
@@ -148,7 +119,8 @@ const ProjectsCard = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: (index % 3) * 0.2 }}
               viewport={{ once: true }}
-              className="group"
+              className="group cursor-pointer"
+              onClick={() => handleProjectClick(project)}
             >
               <motion.div
                 whileHover={{ y: -12, scale: 1.02 }}
@@ -165,33 +137,45 @@ const ProjectsCard = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
                     <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-6 group-hover:translate-y-0 transition-transform duration-300">
                       <div className="flex items-center justify-between text-sm">
-                        <div className="flex items-center gap-4">
-                          <span className="flex items-center gap-1">
-                            <AiFillEye className="w-4 h-4" />{" "}
-                            {project.stats.views}
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <AiFillGithub className="w-4 h-4" />{" "}
-                            {project.stats.stars}
-                          </span>
-                        </div>
+                        {project.stats && (
+                          <div className="flex items-center gap-4">
+                            <span className="flex items-center gap-1">
+                              <AiFillEye className="w-4 h-4" />{" "}
+                              {project.stats.views}
+                            </span>
+                            <span className="flex items-center gap-1">
+                              <AiFillGithub className="w-4 h-4" />{" "}
+                              {project.stats.stars}
+                            </span>
+                          </div>
+                        )}
                         <div className="flex gap-3">
-                          <motion.a
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.95 }}
-                            href={project.github}
-                            className="p-2 bg-white/20 rounded-full backdrop-blur-sm hover:bg-white/30 transition-colors"
-                          >
-                            <AiFillGithub className="w-5 h-5" />
-                          </motion.a>
-                          <motion.a
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.95 }}
-                            href={project.demo}
-                            className="p-2 bg-white/20 rounded-full backdrop-blur-sm hover:bg-white/30 transition-colors"
-                          >
-                            <AiOutlineLink className="w-5 h-5" />
-                          </motion.a>
+                          {project.github && (
+                            <motion.a
+                              whileHover={{ scale: 1.1 }}
+                              whileTap={{ scale: 0.95 }}
+                              href={project.github}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="p-2 bg-white/20 rounded-full backdrop-blur-sm hover:bg-white/30 transition-colors"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <AiFillGithub className="w-5 h-5" />
+                            </motion.a>
+                          )}
+                          {project.demo && (
+                            <motion.a
+                              whileHover={{ scale: 1.1 }}
+                              whileTap={{ scale: 0.95 }}
+                              href={project.demo}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="p-2 bg-white/20 rounded-full backdrop-blur-sm hover:bg-white/30 transition-colors"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <AiOutlineLink className="w-5 h-5" />
+                            </motion.a>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -240,6 +224,18 @@ const ProjectsCard = () => {
             </motion.button>
           </motion.div>
         )}
+
+        <AnimatePresence>
+          {selectedProject && (
+            <ProjectDetails
+              selectedProject={selectedProject}
+              setSelectedProject={setSelectedProject}
+              currentImageIndex={currentImageIndex}
+              projectImages={projectImages}
+              setCurrentImageIndex={setCurrentImageIndex}
+            />
+          )}
+        </AnimatePresence>
       </motion.div>
     </section>
   );
