@@ -18,11 +18,11 @@ const requiredEnv = [
   "SMTP_PASS",
   "NEXT_PUBLIC_EMAIL_TO",
 ];
-requiredEnv.forEach((env) => {
-  if (!process.env[env]) {
-    throw new Error(`Environment variable ${env} is required but missing.`);
-  }
-});
+// requiredEnv.forEach((env) => {
+//   if (!process.env[env]) {
+//     throw new Error(`Environment variable ${env} is required but missing.`);
+//   }
+// });
 
 export async function POST(request: Request) {
   try {
