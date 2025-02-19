@@ -173,15 +173,15 @@ const Header = () => {
                   {[
                     {
                       icon: <AiOutlineGithub size={24} />,
-                      href: "https://github.com/yourusername",
+                      href: "https://github.com/3bd0-shaban",
                     },
                     {
                       icon: <AiOutlineLinkedin size={24} />,
-                      href: "https://linkedin.com/in/yourusername",
+                      href: "https://www.linkedin.com/in/abdelra7man9/",
                     },
                     {
                       icon: <AiOutlineTwitter size={24} />,
-                      href: "https://twitter.com/yourusername",
+                      href: "https://x.com/AbdElra56792253",
                     },
                   ].map((social, index) => (
                     <motion.a
@@ -196,7 +196,7 @@ const Header = () => {
                     </motion.a>
                   ))}
                 </div>
-                <button 
+                <button
                   className="px-6 py-2 bg-gradient-to-r from-indigo-600 to-pink-600 text-white rounded-md"
                   onClick={() => setIsMenuOpen(false)}
                 >

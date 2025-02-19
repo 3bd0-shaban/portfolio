@@ -6,6 +6,7 @@ import {
 } from "react-icons/ai";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useRef, useCallback, memo } from "react";
+import Image from "next/image";
 
 type props = {
   selectedProject: projectTypes;
@@ -166,7 +167,8 @@ const ProjectDetails = memo(
                 onWheel={handleWheel}
               >
                 <AnimatePresence mode="wait">
-                  <motion.img {...imageProps} />
+                  {/* eslint-disable-next-line */}
+                  <Image fill {...imageProps} />
                 </AnimatePresence>
 
                 <motion.button

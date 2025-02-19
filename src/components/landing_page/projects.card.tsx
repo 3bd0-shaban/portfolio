@@ -13,6 +13,7 @@ import {
 import { useRef, useState, useEffect } from "react";
 import ProjectDetails from "./projectDetails";
 import { projects } from "@/constants/Projects";
+import Image from "next/image";
 
 const ProjectsCard = () => {
   const [visibleProjects, setVisibleProjects] = useState(3);
@@ -22,7 +23,6 @@ const ProjectsCard = () => {
   const [projectImages, setProjectImages] = useState<string[]>([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const containerRef = useRef<HTMLElement>(null);
-  const modalRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
@@ -127,9 +127,9 @@ const ProjectsCard = () => {
                 className="h-full rounded-3xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-xl border border-white/[0.08] hover:border-white/[0.2] overflow-hidden shadow-2xl hover:shadow-[0_0_40px_rgba(255,28,247,0.2)]"
               >
                 <div className="relative overflow-hidden aspect-video">
-                  <motion.img
-                    whileHover={{ scale: 1.1, rotate: 2 }}
-                    transition={{ duration: 0.6 }}
+                  <Image
+                    height={500}
+                    width={500}
                     src={project.image}
                     alt={project.title}
                     className="w-full h-full object-cover"

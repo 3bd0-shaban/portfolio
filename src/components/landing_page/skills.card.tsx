@@ -93,7 +93,7 @@ const SkillsCard = () => {
             <motion.div
               initial={{ scale: 0 }}
               whileInView={{ scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
               className="mb-4 px-6 py-2 rounded-full bg-purple-500/10 border border-purple-500/20 backdrop-blur-sm"
             >
               <span className="text-lg font-medium bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
@@ -133,7 +133,7 @@ const SkillsCard = () => {
                   className="text-xl text-gray-400"
                   whileInView={{ opacity: 1, y: 0 }}
                   initial={{ opacity: 0, y: 20 }}
-                  transition={{ duration: 0.7, delay: 0.2 }}
+                  transition={{ duration: 0.7, delay: 0.1 }}
                 >
                   {category.description}
                 </motion.p>
@@ -147,7 +147,7 @@ const SkillsCard = () => {
                     whileInView={{ opacity: 1, scale: 1, y: 0 }}
                     transition={{
                       duration: 0.7,
-                      delay: index * 0.1,
+                      delay: index * 0.02,
                       ease: "easeOut",
                     }}
                     viewport={{ once: true }}
