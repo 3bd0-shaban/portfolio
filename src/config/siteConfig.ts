@@ -5,7 +5,7 @@ export const siteConfig: Metadata = {
   description:
     "Full Stack Developer specializing in modern web technologies. Over 3 years of experience building scalable applications and delivering exceptional user experiences.",
   keywords: [
-    "Full Stack Developer", 
+    "Full Stack Developer",
     "Web Development",
     "React",
     "Next.js",
@@ -18,7 +18,7 @@ export const siteConfig: Metadata = {
     {
       name: "Abdulrahman Shaban",
       url: "https://github.com/abdulrahmanshaban",
-    }
+    },
   ],
   creator: "Abdulrahman Shaban",
   publisher: "Abdulrahman Shaban",
@@ -28,7 +28,8 @@ export const siteConfig: Metadata = {
     locale: "en_US",
     url: "https://abdulrahmanshaban.com",
     title: "Abdulrahman Shaban - Full Stack Developer",
-    description: "Full Stack Developer specializing in modern web technologies. Over 3 years of experience building scalable applications and delivering exceptional user experiences.",
+    description:
+      "Full Stack Developer specializing in modern web technologies. Over 3 years of experience building scalable applications and delivering exceptional user experiences.",
     siteName: "Abdulrahman Shaban Portfolio",
     images: [
       {
@@ -51,5 +52,8 @@ export const siteConfig: Metadata = {
     shortcut: "/favicon-16x16.png",
     apple: "/apple-touch-icon.png",
   },
-  // manifest: "/site.webmanifest", 
+  other: {
+    ["fb:app_id"]: "1161229469068313",
+  },
+  // manifest: "/site.webmanifest",
 };
