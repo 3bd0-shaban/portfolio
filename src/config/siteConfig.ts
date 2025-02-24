@@ -26,7 +26,7 @@ export const siteConfig: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://abdulrahmanshaban.com",
+    url: "https://abdulrahman-shaban.vercel.app",
     title: "Abdulrahman Shaban - Full Stack Developer",
     description:
       "Full Stack Developer specializing in modern web technologies. Over 3 years of experience building scalable applications and delivering exceptional user experiences.",

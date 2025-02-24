@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { siteConfig } from "@/config/siteConfig";
 import "./globals.css";
-import Head from "next/head";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,7 +14,6 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = siteConfig;
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -23,10 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <Head>
-        {/* ✅ حل المشكلة بإضافة `fb:app_id` يدويًا */}
-        <meta property="fb:app_id" content={process.env.FB_APP_URL} />
-      </Head>
+      <meta property="fb:app_id" content={process.env.NEXT_PUBLIC_FB_APP_URL} />
       <body
         suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
