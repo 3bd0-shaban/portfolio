@@ -52,8 +52,5 @@ export const siteConfig: Metadata = {
     shortcut: "/favicon-16x16.png",
     apple: "/apple-touch-icon.png",
   },
-  other: {
-    ["fb:app_id"]: "1161229469068313",
-  },
   // manifest: "/site.webmanifest",
 };
