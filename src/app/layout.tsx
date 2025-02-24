@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <meta property="fb:app_id" content={process.env.NEXT_PUBLIC_FB_APP_URL} />
+      <meta property="fb:app_id" content={process.env.FB_APP_URL} />
       <body
         suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
