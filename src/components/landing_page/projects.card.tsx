@@ -92,26 +92,28 @@ const ProjectsCard = () => {
     >
       <motion.div
         style={{ opacity, scale }}
+        viewport={{ once: true }}
         className="container mx-auto px-4 relative z-10"
       >
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
           className="text-center mb-20"
         >
-          <h2 className="text-7xl font-black mb-8">
+          <h2 className="text-4xl md:text-5xl lg:text-7xl font-black mb-8">
             <span className="inline-block bg-gradient-to-r from-[#FF1CF7] via-[#00DDEB] to-[#6A98F0] bg-clip-text text-transparent animate-gradient">
               Featured Projects
             </span>
           </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
+          <p className="md:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
             Discover innovative solutions that push the boundaries of technology
             and design
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-3 gap-10">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
           {projects.slice(0, visibleProjects).map((project, index) => (
             <motion.div
               key={index}

@@ -32,6 +32,7 @@ const ServicesCard = () => {
             repeat: Infinity,
             ease: "linear",
           }}
+          viewport={{ once: true }}
           className="absolute inset-0 opacity-30"
           style={{
             backgroundImage:
@@ -42,6 +43,7 @@ const ServicesCard = () => {
 
       <motion.div
         style={{ opacity, scale }}
+        viewport={{ once: true }}
         className="container mx-auto max-w-7xl relative z-10 px-4"
       >
         {/* Header Section */}
@@ -50,13 +52,14 @@ const ServicesCard = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
           >
-            <h2 className="text-7xl font-black mb-8 tracking-tight">
+            <h2 className="text-4xl md:text-5xl lg:text-7xl font-black mb-8 tracking-tight">
               <span className="inline-block bg-gradient-to-r from-[#FF1CF7] via-[#00DDEB] to-[#6A98F0] bg-clip-text text-transparent">
                 Innovative Solutions
               </span>
             </h2>
-            <p className="text-xl text-gray-400 leading-relaxed max-w-2xl mx-auto">
+            <p className="md:text-xl text-gray-400 leading-relaxed max-w-2xl mx-auto">
               Transforming visions into digital reality with cutting-edge
               technology and unparalleled expertise
             </p>
@@ -64,7 +67,7 @@ const ServicesCard = () => {
         </div>
 
         {/* Services Grid */}
-        <div className="grid lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {services.map((service, index) => (
             <motion.div
               key={index}
@@ -75,6 +78,7 @@ const ServicesCard = () => {
             >
               <motion.div
                 whileHover={{ y: -12, scale: 1.02 }}
+                viewport={{ once: true }}
                 className="group h-full p-8 rounded-3xl bg-gradient-to-br from-white/[0.03] to-white/[0.01] backdrop-blur-xl border border-white/[0.05] hover:border-white/[0.1] transition-all duration-500"
               >
                 {/* Content */}
@@ -93,6 +97,7 @@ const ServicesCard = () => {
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.1 }}
+                      viewport={{ once: true }}
                       className="flex items-center gap-4 p-3 rounded-xl bg-gradient-to-r from-white/[0.05] to-transparent hover:from-white/[0.08] transition-colors duration-300"
                     >
                       <motion.div
@@ -104,6 +109,7 @@ const ServicesCard = () => {
                           repeat: Infinity,
                           ease: "easeInOut",
                         }}
+                        viewport={{ once: true }}
                         className={`w-2 h-2 rounded-full bg-gradient-to-r ${service.gradient}`}
                       />
                       <span className="text-sm text-gray-300 font-medium">

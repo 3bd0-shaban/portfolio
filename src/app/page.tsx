@@ -8,57 +8,22 @@ import Header from "@/components/landing_page/Header";
 import PracticalEffect from "@/components/parts/practicale.effect";
 import SkillsCard from "@/components/landing_page/skills.card";
 import { motion } from "framer-motion";
+import { Suspense } from "react";
 
-export default function Component() {
+export default function page() {
   return (
     <div className="relative text-white overflow-hidden bg-[#0a0a0a]">
       <PracticalEffect />
-
-      {/* Dynamic background particles */}
+      {/* Background effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Grid lines */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_70%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:60px_60px] [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_70%)]" />
 
-        {/* Moving particles */}
-        <div className="absolute top-0 left-0 w-full h-full">
-          {[...Array(20)].map((_, i) => (
-            <div
-              key={i}
-              className={`
-                absolute w-1 h-1 rounded-fullbg-white/20 blur-[1px] animate-particle-float-${
-                  i % 5
-                } left-[${Math.random() * 100}%] top-[${Math.random() * 100}%]
-              `}
-            >
-              <div className="absolute w-full h-12 bg-gradient-to-b from-white/10 to-transparent transform -translate-y-full" />
-            </div>
-          ))}
-        </div>
-
-        {/* Flowing lines */}
-        <div className="absolute inset-0">
-          {[...Array(8)].map((_, i) => (
-            <div
-              key={i}
-              className={`
-                absolute h-[1px] w-[200%] 
-                bg-gradient-to-r from-transparent via-white/10 to-transparent
-                animate-flow-left-${i % 4}
-                top-[${(i + 1) * 12}%]
-                -left-full
-                opacity-${30 + i * 10}
-                blur-[2px]
-              `}
-            />
-          ))}
-        </div>
-
-        {/* Glowing orbs */}
-        <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-purple-500/5 rounded-full blur-3xl animate-pulse-slow" />
-        <div className="absolute bottom-1/4 right-1/4 w-32 h-32 bg-cyan-500/5 rounded-full blur-3xl animate-pulse-slow delay-1000" />
+        {/* Simplified glowing orbs */}
+        <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-purple-500/5 rounded-full blur-2xl animate-pulse-slow" />
+        <div className="absolute bottom-1/4 right-1/4 w-32 h-32 bg-cyan-500/5 rounded-full blur-2xl animate-pulse-slow delay-1000" />
       </div>
 
-      {/* Glassmorphic Header */}
+      {/* Header */}
       <motion.div
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -69,16 +34,15 @@ export default function Component() {
       </motion.div>
 
       <main className="relative">
-        {/* Hero Section */}
         <TopCard />
 
-        <ServicesCard />
-        <SkillsCard />
-        <PortfolioCard />
-
-        <ContactCard />
-
-        <Footer />
+        <Suspense fallback={<div className="h-screen" />}>
+          <ServicesCard />
+          <SkillsCard />
+          <PortfolioCard />
+          <ContactCard />
+          <Footer />
+        </Suspense>
       </main>
     </div>
   );

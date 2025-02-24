@@ -75,7 +75,7 @@ const Header = () => {
           </motion.div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden lg:flex items-center space-x-8">
             <div className="flex space-x-6">
               {menuItems.map((item) => (
                 <motion.a
@@ -138,7 +138,7 @@ const Header = () => {
 
           {/* Mobile Menu Button */}
           <motion.button
-            className="md:hidden text-2xl text-white"
+            className="lg:hidden text-2xl text-white"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             whileTap={{ scale: 0.95 }}
           >
@@ -154,7 +154,7 @@ const Header = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-black/95 backdrop-blur-lg"
+            className="lg:hidden bg-black/95 backdrop-blur-lg"
           >
             <div className="px-4 py-6 space-y-4">
               {menuItems.map((item) => (

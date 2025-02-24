@@ -77,7 +77,7 @@ const SkillsCard = () => {
       {" "}
       {/* Animated background elements */}
       <div className="absolute inset-0">
-        <div className="absolute w-full h-full bg-[url('/grid.svg')] [mask-image:radial-gradient(white,transparent_70%)] opacity-30" />
+        <div className="absolute w-full h-full [mask-image:radial-gradient(white,transparent_70%)] opacity-30" />
         <div className="absolute top-1/4 left-0 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-[128px] opacity-50 animate-pulse" />
         <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-cyan-500 rounded-full mix-blend-multiply filter blur-[128px] opacity-50 animate-pulse animation-delay-2000" />
       </div>
@@ -94,6 +94,7 @@ const SkillsCard = () => {
               initial={{ scale: 0 }}
               whileInView={{ scale: 1 }}
               transition={{ duration: 0.5, delay: 0.1 }}
+              viewport={{ once: true }}
               className="mb-4 px-6 py-2 rounded-full bg-purple-500/10 border border-purple-500/20 backdrop-blur-sm"
             >
               <span className="text-lg font-medium bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
@@ -101,10 +102,10 @@ const SkillsCard = () => {
               </span>
             </motion.div>
           </div>
-          <h2 className="text-7xl font-bold mb-8 bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-8 bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent">
             Skills & Technologies
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
             Crafting exceptional digital experiences through mastery of
             cutting-edge technologies
           </p>
@@ -122,17 +123,19 @@ const SkillsCard = () => {
             >
               <div className="mb-16 max-w-3xl mx-auto text-center">
                 <motion.h3
-                  className="text-5xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"
+                  className="text-2xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"
                   whileInView={{ opacity: 1, y: 0 }}
                   initial={{ opacity: 0, y: 20 }}
                   transition={{ duration: 0.7 }}
+                  viewport={{ once: true }}
                 >
                   {category.title}
                 </motion.h3>
                 <motion.p
-                  className="text-xl text-gray-400"
+                  className="text-xs md:text-xl text-gray-400"
                   whileInView={{ opacity: 1, y: 0 }}
                   initial={{ opacity: 0, y: 20 }}
+                  viewport={{ once: true }}
                   transition={{ duration: 0.7, delay: 0.1 }}
                 >
                   {category.description}

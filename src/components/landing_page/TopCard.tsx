@@ -11,11 +11,11 @@ const TopCard = () => {
   return (
     <section
       id="home"
-      className="relative overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-900 via-black to-black pt-20 md:pt-0"
+      className="relative overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-900 via-black to-black pt-20 lg:pt-0"
     >
       {/* Animated background elements */}
       <div className="absolute inset-0">
-        <div className="absolute w-full h-full bg-[url('/grid.svg')] opacity-20" />
+        <div className="absolute w-full h-full opacity-20" />
         <div className="absolute top-0 -left-4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob" />
         <div className="absolute top-0 -right-4 w-96 h-96 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000" />
         <div className="absolute -bottom-8 left-20 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000" />
@@ -28,6 +28,7 @@ const TopCard = () => {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
             className="flex-1 space-y-8 text-center lg:text-left max-w-2xl mx-auto lg:mx-0"
           >
             {/* Status Badge */}
