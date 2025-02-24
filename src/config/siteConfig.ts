@@ -30,12 +30,21 @@ export const siteConfig: Metadata = {
     title: "Abdulrahman Shaban - Full Stack Developer",
     description: "Full Stack Developer specializing in modern web technologies. Over 3 years of experience building scalable applications and delivering exceptional user experiences.",
     siteName: "Abdulrahman Shaban Portfolio",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Abdulrahman Shaban Portfolio",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Abdulrahman Shaban - Full Stack Developer",
     description: "Full Stack Developer specializing in modern web technologies",
     creator: "@abdulrahmanshaban",
+    images: ["/og-image.jpg"],
   },
   icons: {
     icon: "/favicon.ico",

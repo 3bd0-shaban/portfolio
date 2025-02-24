@@ -28,6 +28,7 @@ export default function page() {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
         className="fixed top-0 left-0 right-0 z-50 bg-white/[0.02] backdrop-blur-xl border-b border-white/[0.05] shadow-lg"
       >
         <Header />
