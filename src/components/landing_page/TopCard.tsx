@@ -85,7 +85,7 @@ const TopCard = () => {
                 whileTap={{ scale: 0.95 }}
               >
                 <a 
-                  href="/Abdulrahman_Shaban FullStack.pdf"
+                  href="/Abdulrahman_Shaban_FullStack.pdf"
                   download
                   className="inline-flex items-center gap-2 h-12 sm:h-14 px-6 sm:px-8 text-base sm:text-lg font-medium bg-gradient-to-r from-indigo-600 to-pink-600 text-white rounded-xl hover:shadow-[0_0_2rem_rgba(79,70,229,0.35)] hover:bg-gradient-to-l transition-all duration-300"
                 >
@@ -167,7 +167,7 @@ const TopCard = () => {
             <div className="grid grid-cols-2 gap-4 sm:gap-6">
               {[
                 { label: "Years Experience", value: "3+", icon: "🚀" },
-                { label: "Projects Completed", value: "10+", icon: "💼" },
+                { label: "Projects Completed", value: "15+", icon: "💼" },
                 { label: "Client Satisfaction", value: "100%", icon: "⭐" },
                 { label: "Technologies", value: "20+", icon: "🛠️" },
               ].map((stat, index) => (
