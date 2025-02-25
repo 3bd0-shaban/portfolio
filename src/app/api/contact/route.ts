@@ -10,29 +10,17 @@ const contactSchema = z.object({
   to: z.string().email("Invalid recipient email"),
 });
 
-// Validate environment variables
-const requiredEnv = [
-  "SMTP_HOST",
-  "SMTP_PORT",
-  "SMTP_USER",
-  "SMTP_PASS",
-  "NEXT_PUBLIC_EMAIL_TO",
-];
-// requiredEnv.forEach((env) => {
-//   if (!process.env[env]) {
-//     throw new Error(`Environment variable ${env} is required but missing.`);
-//   }
-// });
-
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
+    // Add timeout for the entire request
+    const timeoutPromise = new Promise((_, reject) => {
+      setTimeout(() => reject(new Error("Request timeout")), 9000); // 9 seconds timeout
+    });
 
-    // Validate request body
+    const body = await request.json();
     const validatedData = contactSchema.parse(body);
     const { name, email, message, to } = validatedData;
 
-    // Create transporter using custom SMTP settings
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port: Number(process.env.SMTP_PORT),
@@ -44,15 +32,18 @@ export async function POST(request: Request) {
       tls: {
         rejectUnauthorized: true,
       },
+      // Add connection timeout
+      connectionTimeout: 5000, // 5 seconds
+      socketTimeout: 5000, // 5 seconds
     });
 
-    // Email template
     const mailOptions = {
-      from: `"${name}" <${process.env.SMTP_USER}>`, // Use SMTP_USER as sender
-      replyTo: email, // Allow recipient to reply directly to the sender
+      from: `"${name}" <${process.env.SMTP_USER}>`,
+      replyTo: email,
       to: to,
-      subject: `✨ New Portfolio Contact: ${name} | ${new Date().toLocaleDateString()}`,
+      subject: `✨ New Portfolio Contact: ${name}`,
       text: message,
+      // Simplified HTML template to reduce processing time
       html: `
         <div style="max-width: 600px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
           <div style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); padding: 40px 20px; text-align: center; border-radius: 16px 16px 0 0;">
@@ -83,56 +74,49 @@ export async function POST(request: Request) {
       `,
     };
 
-    // Retry logic with exponential backoff
-    let retries = 3;
-    while (retries > 0) {
-      try {
-        await transporter.sendMail(mailOptions);
-        return NextResponse.json(
-          {
-            success: true,
-            message: "Message sent successfully",
-            metadata: {
-              timestamp: new Date().toISOString(),
-              recipient: to,
-              sender: email,
-            },
-          },
-          { status: 200 }
-        );
-      } catch (error) {
-        retries--;
-        if (retries === 0) throw error; // Throw if all retries fail
-        await new Promise(
-          (resolve) => setTimeout(resolve, 1000 * Math.pow(2, 3 - retries)) // Exponential backoff
-        );
-      }
-    }
-  } catch (error) {
-    // Handle validation errors
+    // Race between email sending and timeout
+    await Promise.race([
+      (async () => {
+        let retries = 2;
+        while (retries >= 0) {
+          try {
+            await transporter.sendMail(mailOptions);
+            return;
+          } catch (error) {
+            if (retries === 0) throw error;
+            retries--;
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+          }
+        }
+      })(),
+      timeoutPromise,
+    ]);
+
+    return NextResponse.json(
+      { success: true, message: "Message sent successfully" },
+      { status: 200 }
+    );
+  } catch (error:any) {
+    console.error("Email error:", error);
+
     if (error instanceof z.ZodError) {
       return NextResponse.json(
-        {
-          success: false,
-          error: "Validation failed",
-          details: error.errors.map((err) => ({
-            field: err.path.join("."),
-            message: err.message,
-          })),
-        },
+        { success: false, message: "Validation failed" },
         { status: 400 }
       );
     }
 
-    // Handle other errors
-    const errorMessage =
-      error instanceof Error ? error.message : "Unknown error occurred";
+    if (error.message === "Request timeout") {
+      return NextResponse.json(
+        { success: false, message: "Request timed out. Please try again." },
+        { status: 408 }
+      );
+    }
+
     return NextResponse.json(
       {
         success: false,
-        error: "Failed to send message",
-        message: errorMessage,
-        timestamp: new Date().toISOString(),
+        message: "Failed to send email. Please try again later.",
       },
       { status: 500 }
     );
