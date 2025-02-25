@@ -8,9 +8,13 @@ import Header from "@/components/landing_page/Header";
 import PracticalEffect from "@/components/parts/practicale.effect";
 import SkillsCard from "@/components/landing_page/skills.card";
 import { motion } from "framer-motion";
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 
 export default function LandingPage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="relative text-white overflow-hidden bg-[#0a0a0a]">
       <PracticalEffect />
