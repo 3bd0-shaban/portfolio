@@ -1,8 +1,8 @@
 import {
-    AiOutlineClose,
-    AiFillGithub,
-    AiOutlineLink,
-    AiOutlineExpandAlt,
+  AiOutlineClose,
+  AiFillGithub,
+  AiOutlineLink,
+  AiOutlineExpandAlt,
 } from "react-icons/ai";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useRef, useCallback, memo } from "react";

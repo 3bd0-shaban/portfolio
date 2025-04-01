@@ -1,11 +1,10 @@
 import {
-  AiOutlineGithub,
-  AiOutlineLinkedin,
-  AiOutlineTwitter,
   AiOutlineArrowRight,
 } from "react-icons/ai";
 import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
+import { personalInfo } from "@/config/siteConfig";
+import { SocialMedia } from "@/constants/ScocialMedia";
 
 const TopCard = () => {
   return (
@@ -54,7 +53,7 @@ const TopCard = () => {
                 Hey! I Am{" "}
                 <div className="mt-2 relative">
                   <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent animate-gradient-x">
-                    Abdulrahman Shaban
+                    {personalInfo.name}
                   </span>
                   <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 rounded-full transform scale-x-0 animate-expand" />
                 </div>
@@ -63,11 +62,11 @@ const TopCard = () => {
               <div className="h-20">
                 <TypeAnimation
                   sequence={[
-                    "Full Stack Developer",
+                    `${personalInfo.role}`,
                     1500,
-                    "Full Stack Developer",
+                    `${personalInfo.role}`,
                     1500,
-                    "Full Stack Developer",
+                    `${personalInfo.role}`,
                     1500,
                   ]}
                   wrapper="span"
@@ -84,8 +83,8 @@ const TopCard = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <a 
-                  href="/Abdulrahman_Shaban_FullStack.pdf"
+                <a
+                  href={personalInfo.resume}
                   download
                   className="inline-flex items-center gap-2 h-12 sm:h-14 px-6 sm:px-8 text-base sm:text-lg font-medium bg-gradient-to-r from-indigo-600 to-pink-600 text-white rounded-xl hover:shadow-[0_0_2rem_rgba(79,70,229,0.35)] hover:bg-gradient-to-l transition-all duration-300"
                 >
@@ -111,7 +110,7 @@ const TopCard = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <a 
+                <a
                   href="#contact-me"
                   className="inline-flex items-center h-12 sm:h-14 px-6 sm:px-8 text-base sm:text-lg font-medium bg-white/5 backdrop-blur-lg border border-white/10 text-white rounded-xl hover:bg-white/10 transition-all duration-300"
                 >
@@ -122,26 +121,7 @@ const TopCard = () => {
 
             {/* Social Links */}
             <div className="flex justify-center lg:justify-start gap-4">
-              {[
-                {
-                  icon: AiOutlineGithub,
-                  link: "https://github.com/3bd0-shaban",
-                  color: "hover:text-purple-400",
-                  label: "GitHub",
-                },
-                {
-                  icon: AiOutlineLinkedin,
-                  link: "https://www.linkedin.com/in/abdelra7man9/",
-                  color: "hover:text-blue-400",
-                  label: "LinkedIn",
-                },
-                {
-                  icon: AiOutlineTwitter,
-                  link: "https://x.com/AbdElra56792253",
-                  color: "hover:text-cyan-400",
-                  label: "Twitter",
-                },
-              ].map((social, index) => (
+              {SocialMedia.map((social, index) => (
                 <motion.a
                   key={index}
                   href={social.link}

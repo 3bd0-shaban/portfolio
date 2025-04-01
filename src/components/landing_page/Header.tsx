@@ -1,14 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import {
-  AiOutlineMenu,
-  AiOutlineClose,
-  AiOutlineGithub,
-  AiOutlineLinkedin,
-  AiOutlineTwitter,
-} from "react-icons/ai";
+import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { motion, AnimatePresence } from "framer-motion";
+import { SocialMedia } from "@/constants/ScocialMedia";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -100,29 +95,16 @@ const Header = () => {
 
             {/* Social Links */}
             <div className="flex items-center space-x-4">
-              {[
-                {
-                  icon: <AiOutlineGithub />,
-                  href: "https://github.com/3bd0-shaban",
-                },
-                {
-                  icon: <AiOutlineLinkedin />,
-                  href: "https://www.linkedin.com/in/abdelra7man9/",
-                },
-                {
-                  icon: <AiOutlineTwitter />,
-                  href: "https://x.com/AbdElra56792253",
-                },
-              ].map((social, index) => (
+              {SocialMedia.map((social, index) => (
                 <motion.a
                   key={index}
-                  href={social.href}
+                  href={social.link}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-400 hover:text-white transition-colors duration-300"
                   whileHover={{ y: -2, scale: 1.1 }}
                 >
-                  {social.icon}
+                  <social.icon />
                 </motion.a>
               ))}
             </div>
@@ -170,29 +152,16 @@ const Header = () => {
               ))}
               <div className="pt-4 flex justify-between items-center">
                 <div className="flex space-x-4">
-                  {[
-                    {
-                      icon: <AiOutlineGithub size={24} />,
-                      href: "https://github.com/3bd0-shaban",
-                    },
-                    {
-                      icon: <AiOutlineLinkedin size={24} />,
-                      href: "https://www.linkedin.com/in/abdelra7man9/",
-                    },
-                    {
-                      icon: <AiOutlineTwitter size={24} />,
-                      href: "https://x.com/AbdElra56792253",
-                    },
-                  ].map((social, index) => (
+                  {SocialMedia.map((social, index) => (
                     <motion.a
                       key={index}
-                      href={social.href}
+                      href={social.link}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-gray-400 hover:text-white"
                       whileHover={{ scale: 1.1 }}
                     >
-                      {social.icon}
+                      <social.icon />
                     </motion.a>
                   ))}
                 </div>

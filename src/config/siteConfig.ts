@@ -54,3 +54,14 @@ export const siteConfig: Metadata = {
   },
   // manifest: "/site.webmanifest",
 };
+
+export const personalInfo = {
+  name: "Abdulrahman Shaban",
+  role: "Full Stack Developer",
+  resume: "/Abdulrahman_Shaban_FullStack.pdf",
+  social: {
+    github: "https://github.com/3bd0-shaban",
+    linkedin: "https://www.linkedin.com/in/abdelra7man9/",
+    x: "https://x.com/AbdElra56792253",
+  },
+};

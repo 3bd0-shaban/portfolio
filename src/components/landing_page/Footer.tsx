@@ -1,10 +1,5 @@
+import { SocialMedia } from "@/constants/ScocialMedia";
 import { motion } from "framer-motion";
-import {
-  AiOutlineGithub,
-  AiOutlineLinkedin,
-  AiOutlineTwitter,
-} from "react-icons/ai";
-
 const Footer = () => {
   return (
     <footer className="relative border-white/10 bg-gradient-to-b from-[#141123] via-[#141123] to-[#141123] backdrop-blur-xl">
@@ -61,26 +56,7 @@ const Footer = () => {
           {/* Social Links */}
           <div className="flex flex-col items-center lg:items-end space-y-6">
             <div className="flex space-x-1">
-              {[
-                {
-                  icon: AiOutlineGithub,
-                  link: "https://github.com/3bd0-shaban",
-                  color: "hover:text-purple-400",
-                  label: "GitHub",
-                },
-                {
-                  icon: AiOutlineLinkedin,
-                  link: "https://www.linkedin.com/in/abdelra7man9/",
-                  color: "hover:text-blue-400",
-                  label: "LinkedIn",
-                },
-                {
-                  icon: AiOutlineTwitter,
-                  link: "https://x.com/AbdElra56792253",
-                  color: "hover:text-cyan-400",
-                  label: "Twitter",
-                },
-              ].map((social, index) => (
+              {SocialMedia.map((social, index) => (
                 <motion.a
                   key={index}
                   href={social.link}
